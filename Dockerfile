@@ -1,14 +1,12 @@
 FROM python:3.9
 
-# Set working directory inside container
 WORKDIR /app
 
-# Copy requirements file
+# Copy requirements
 COPY requirements.txt /app
 
-# Install system dependencies
+# Install system dependencies for mysqlclient
 RUN apt-get update \
-    && apt-get upgrade -y \
     && apt-get install -y gcc default-libmysqlclient-dev pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
@@ -16,11 +14,11 @@ RUN apt-get update \
 RUN pip install mysqlclient
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the whole project
+# Copy project files
 COPY . /app
 
-# Expose port 8000 for Django
+# Expose port
 EXPOSE 8000
 
-# Run Django server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Run migrations + start server
+CMD ["sh", "-c", "python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8000"]
