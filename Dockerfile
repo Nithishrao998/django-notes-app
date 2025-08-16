@@ -17,6 +17,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy project files
 COPY . /app
 
+# ✅ Force SQLite database inside container
+ENV DJANGO_DB_ENGINE=django.db.backends.sqlite3
+ENV DJANGO_DB_NAME=/app/db.sqlite3
+
 # Expose port
 EXPOSE 8000
 
