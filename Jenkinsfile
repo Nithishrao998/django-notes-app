@@ -11,6 +11,7 @@ pipeline{
         }
         stage("Code Build"){
             steps{
+                echo"thanks"
             dockerbuild("notes-app","latest")
             }
         }
