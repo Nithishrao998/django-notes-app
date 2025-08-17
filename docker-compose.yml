@@ -1,7 +1,8 @@
-version: "3.3"
+version: '3.8'
+
 services:
   web:
-    build:
-    context: .
+    build: .
     ports:
       - "8000:8000"
+    image: nithishrao/notes-app:latest
